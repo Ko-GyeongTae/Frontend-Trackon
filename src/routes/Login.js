@@ -19,6 +19,7 @@ function Login() {
     .then(res => {
       console.log(res.data["access_token"]);
       cookies.set("accessToken", res.data["access_token"]);
+      window.location.reload(false);
       alert(cookies.get("accessToken"));
     })
     .catch(err => {

@@ -7,7 +7,6 @@ const cookies = new Cookies();
 
 function App() {
   const isLoggedIn = cookies.get('accessToken') ? true : false;
-  console.log(isLoggedIn);
   return (
     <BrowserRouter>
       <Switch>

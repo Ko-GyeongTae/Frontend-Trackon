@@ -1,13 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
+
+const baseURL = 'http://122.34.166.47:5000';
 
 function App() {
   const [id, setId] = useState();
   const [pw, setPw] = useState();
 
   const Login = async() => {
-
+    console.log(id, pw);
+    await axios.post(baseURL + "/auth/login", {
+      "name": id,
+      "password": pw
+    })
+    .then(res => {
+      console.log(res.data["access_token"]);
+      alert(res.data["access_token"]);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   return (
@@ -34,7 +48,7 @@ function App() {
                     <input type="password" name="password" placeholder="Password" value={pw} onChange={e => setPw(e.target.value)}/>
                   </div>
                 </div>
-                <div className="ui fluid large teal submit button" onClick={e => null}>Login</div>
+                <div className="ui fluid large teal submit button" onClick={Login}>Login</div>
               </div>
               <div className="ui error message"></div>
             </form>

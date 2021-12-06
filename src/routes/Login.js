@@ -3,30 +3,28 @@ import axios from 'axios';
 import { Cookies } from 'react-cookie';
 import 'semantic-ui-css/semantic.min.css'
 
-const baseURL = 'http://122.34.166.47:5000';
-const cookies = new Cookies();
-
+const baseURL = 'http://122.34.166.47:5000'; // Server ip + port
+const cookies = new Cookies(); // Generate object for access to browser cookie value
 function Login() {
-  const [id, setId] = useState();
-  const [pw, setPw] = useState();
+  const [id, setId] = useState(); // id State variable
+  const [pw, setPw] = useState(); // password State variable
 
-  const Login = async() => {
-    console.log(id, pw);
-    await axios.post(baseURL + "/auth/login", {
+  const Login = async() => { // login function
+    await axios.post(baseURL + "/auth/login", { // Request to login api with axios module
       "name": id,
       "password": pw
-    })
+    }) 
     .then(res => {
-      console.log(res.data["access_token"]);
-      cookies.set("accessToken", res.data["access_token"]);
-      window.location.reload(false);
-      alert(cookies.get("accessToken"));
+      cookies.set("accessToken", res.data["access_token"]); // Set cookie with token in response
+      window.location.reload(false); // Reload screen
+      alert(cookies.get("accessToken")); // If you success to login browser show your token value
     })
     .catch(err => {
-      console.log(err);
+      console.log(err); // If you fail to login, Browser print error log.
     })
   }
 
+  // View
   return (
     <div className="ui centered grid" style={{ paddingTop: 200 }}>
       <div style={{ width: 450 }}>

@@ -23,7 +23,6 @@ function Home() {
         })
             .then(res => {
                 setPosition(res.data);
-                console.log(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -31,7 +30,6 @@ function Home() {
     }
 
     async function deleteReport(arg) {
-        console.log("hello")
         await axios.delete(baseURL + "/report/" + arg, {
             headers: {
                 Authorization: cookies.get("accessToken")

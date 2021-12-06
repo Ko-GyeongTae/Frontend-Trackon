@@ -16,15 +16,29 @@ function Home() {
     }
 
     async function getReport() {
-        console.log('request');
         await axios.get(baseURL + "/report", {
             headers: {
                 Authorization: cookies.get("accessToken")
             }
         })
             .then(res => {
-                console.log(res.data);
                 setPosition(res.data);
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    async function deleteReport(arg) {
+        console.log("hello")
+        await axios.delete(baseURL + "/report/" + arg, {
+            headers: {
+                Authorization: cookies.get("accessToken")
+            }
+        })
+            .then(res => {
+                console.log(res.status);
             })
             .catch(err => {
                 console.log(err);
@@ -54,11 +68,14 @@ function Home() {
                         </h1>
                         <h2>You can track your Arduino</h2>
                     </div>
-                    <Location position={position}/>
+                    <Location position={position} />
                 </div>
                 {position.map(p => (
-                    <div key={p.id}>
+                    <div key={p.id} style={{ textAlign: 'center', backgroundColor: '#f1f1f1', margin: 10, padding: 10 }} onClick={() => window.confirm("삭제하시겠습니까") ? deleteReport(p.reportId) : null}>
                         <h1 key={p.id}>{p.name}</h1>
+                        <p key={p.id}>{p.message}</p>
+                        <h2 key={p.id}>{p.reportType}</h2>
+                        <p key={p.id}>{p.reportAt}</p>
                     </div>
                 ))}
             </div>

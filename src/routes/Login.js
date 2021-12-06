@@ -3,24 +3,26 @@ import axios from 'axios';
 import { Cookies } from 'react-cookie';
 import 'semantic-ui-css/semantic.min.css'
 
-const baseURL = 'http://122.34.166.47:5000'; // Server ip + port
+const baseURL = 'http://220.90.237.33:7799'; // Server ip + port
 const cookies = new Cookies(); // Generate object for access to browser cookie value
 function Login() {
   const [id, setId] = useState(); // id State variable
   const [pw, setPw] = useState(); // password State variable
 
   const Login = async() => { // login function
-    await axios.post(baseURL + "/auth/login", { // Request to login api with axios module
-      "name": id,
+    await axios.post(baseURL + "/auth/admin", { // Request to login api with axios module
+      "id": id,
       "password": pw
     }) 
     .then(res => {
-      cookies.set("accessToken", res.data["access_token"]); // Set cookie with token in response
+      console.log(res)
+      cookies.set("accessToken", res.data["accessToken"]); // Set cookie with token in response
       window.location.reload(false); // Reload screen
       alert(cookies.get("accessToken")); // If you success to login browser show your token value
     })
     .catch(err => {
       console.log(err); // If you fail to login, Browser print error log.
+      alert("Wrong Authentication");
     })
   }
 

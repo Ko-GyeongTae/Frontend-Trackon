@@ -15,7 +15,6 @@ function Login() {
       "password": pw
     }) 
     .then(res => {
-      console.log(res)
       cookies.set("accessToken", res.data["accessToken"]); // Set cookie with token in response
       window.location.reload(false); // Reload screen
       alert(cookies.get("accessToken")); // If you success to login browser show your token value

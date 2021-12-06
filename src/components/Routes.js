@@ -18,7 +18,7 @@ const LoggedInRoutes = () => (
 )
 
 const AppRouter = ({ isLoggedIn }) => {
-    return (isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />)
+    return (isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />) // If logged in, show after login page
 }
 
 export default withRouter(AppRouter);

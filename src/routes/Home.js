@@ -10,29 +10,29 @@ const cookies = new Cookies();
 
 function Home() {
     const [position, setPosition] = useState([]);
-    const logout = () => {
-        cookies.remove("accessToken");
-        window.location.reload(false);
+    const logout = () => { // Logout function
+        cookies.remove("accessToken"); // Remove accesstoken from browser cookie storage
+        window.location.reload(false); // Reload page
     }
 
-    async function getReport() {
+    async function getReport() { // Get Report list
         await axios.get(baseURL + "/report", {
             headers: {
-                Authorization: cookies.get("accessToken")
+                Authorization: cookies.get("accessToken") // Get accesstoken from browser cookie
             }
         })
             .then(res => {
-                setPosition(res.data);
+                setPosition(res.data); // Save report list in state
             })
             .catch(err => {
                 console.log(err);
             })
     }
 
-    async function deleteReport(arg) {
+    async function deleteReport(arg) { // Delete report function
         await axios.delete(baseURL + "/report/" + arg, {
             headers: {
-                Authorization: cookies.get("accessToken")
+                Authorization: cookies.get("accessToken") // Get accesstoken from browser cookie
             }
         })
             .then(res => {
@@ -41,10 +41,11 @@ function Home() {
             .catch(err => {
                 console.log(err);
             })
+        window.location.reload(false); // Reload screen
     }
 
     useEffect(() => {
-        getReport();
+        getReport(); 
     }, []);
     return (
         <>
